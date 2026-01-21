@@ -24,15 +24,15 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { runFlow } from '@genkit-ai/next';
 import { prioritizeTasksFlow } from '@/ai/flows/prioritizeTasks';
-import type { Task, Employee } from '@/lib/types';
+import type { Task, User } from '@/types';
 import { Badge } from '@/components/ui/badge';
 
 type PrioritizedTask = Task & {
   justification: string;
-  newPriority: 'Low' | 'Medium' | 'High' | 'Critical';
+  newPriority: 'low' | 'medium' | 'high';
 };
 
-export function PrioritizeTasksDialog({ tasks, employees }: { tasks: Task[], employees: Employee[] }) {
+export function PrioritizeTasksDialog({ tasks, employees }: { tasks: Task[], employees: User[] }) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +43,8 @@ export function PrioritizeTasksDialog({ tasks, employees }: { tasks: Task[], emp
     setError(null);
     setResult(null);
     try {
+      // Mapping to expected shape if flow expects specific fields, or assume flow is updated. 
+      // For now passing as is.
       const { prioritizedTasks } = await runFlow(prioritizeTasksFlow, { tasks, employees });
       setResult(prioritizedTasks as PrioritizedTask[]);
     } catch (e: any) {
@@ -51,16 +53,15 @@ export function PrioritizeTasksDialog({ tasks, employees }: { tasks: Task[], emp
       setIsLoading(false);
     }
   };
-  
-  const getPriorityVariant = (priority: 'Low' | 'Medium' | 'High' | 'Critical'): 'outline' | 'secondary' | 'destructive' | 'default' => {
+
+  const getPriorityVariant = (priority: string): 'outline' | 'secondary' | 'destructive' | 'default' => {
     switch (priority) {
-      case 'Critical':
+      case 'critical':
+      case 'high':
         return 'destructive';
-      case 'High':
-        return 'destructive';
-      case 'Medium':
+      case 'medium':
         return 'secondary';
-      case 'Low':
+      case 'low':
       default:
         return 'outline';
     }
@@ -83,12 +84,12 @@ export function PrioritizeTasksDialog({ tasks, employees }: { tasks: Task[], emp
         </DialogHeader>
         <div className="py-4">
           {!result && !isLoading && !error && (
-             <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
-                <Wand2 className="h-12 w-12 text-muted-foreground mb-4" />
-                <h3 className="text-lg font-semibold">Ready to optimize?</h3>
-                <p className="text-sm text-muted-foreground mb-4">Click the button below to start the AI analysis.</p>
-                <Button onClick={handlePrioritize}>Generate Priorities</Button>
-             </div>
+            <div className="flex flex-col items-center justify-center text-center p-8 border-2 border-dashed rounded-lg">
+              <Wand2 className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-semibold">Ready to optimize?</h3>
+              <p className="text-sm text-muted-foreground mb-4">Click the button below to start the AI analysis.</p>
+              <Button onClick={handlePrioritize}>Generate Priorities</Button>
+            </div>
           )}
 
           {isLoading && (

@@ -1,5 +1,5 @@
 'use client';
-import { useMemo, DependencyList } from 'react';
+import React, { useMemo, DependencyList } from 'react';
 import { isEqual } from 'lodash';
 
 // Custom hook to deeply compare dependencies for React's memoization hooks

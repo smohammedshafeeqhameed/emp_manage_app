@@ -5,15 +5,15 @@ type Events = {
   'permission-error': (error: FirestorePermissionError) => void;
 };
 
-class TypedEventEmitter<T> {
+class TypedEventEmitter<T extends Record<string, (...args: any[]) => void>> {
   private emitter = new EventEmitter();
 
   on<E extends keyof T>(event: E, listener: T[E]): void {
-    this.emitter.on(event as string, listener);
+    this.emitter.on(event as string, listener as any);
   }
 
   off<E extends keyof T>(event: E, listener: T[E]): void {
-    this.emitter.off(event as string, listener);
+    this.emitter.off(event as string, listener as any);
   }
 
   emit<E extends keyof T>(event: E, ...args: Parameters<T[E]>): void {

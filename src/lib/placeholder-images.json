@@ -1,3 +1,40 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "avatar1",
+      "description": "A portrait of a smiling woman.",
+      "imageUrl": "https://images.unsplash.com/photo-1610655507808-a59293f4e332?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc2OTAwMzgxMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "avatar2",
+      "description": "A portrait of a man in a suit.",
+      "imageUrl": "https://images.unsplash.com/photo-1583195763986-0231686dcd43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxtYW4lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NjkwMDgzMTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "avatar3",
+      "description": "A professional headshot of a person.",
+      "imageUrl": "https://images.unsplash.com/photo-1464890064245-e40511fcf984?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBoZWFkc2hvdHxlbnwwfHx8fDE3Njg5MjY1OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person headshot"
+    },
+    {
+      "id": "avatar4",
+      "description": "A person smiling in an office environment.",
+      "imageUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc2ODk3NTM1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "avatar5",
+      "description": "A developer working on a laptop.",
+      "imageUrl": "https://images.unsplash.com/photo-1638259116216-e7c65a918fd2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZXZlbG9wZXIlMjB3b3JraW5nfGVufDB8fHx8MTc2OTAxNTY5N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "developer working"
+    },
+    {
+      "id": "avatar6",
+      "description": "A designer sketching on a notepad.",
+      "imageUrl": "https://images.unsplash.com/photo-1753162657497-82d7964273bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZXNpZ25lciUyMHNrZXRjaGluZ3xlbnwwfHx8fDE3NjkwMDQ3NTZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "designer sketching"
+    }
+  ]
 }

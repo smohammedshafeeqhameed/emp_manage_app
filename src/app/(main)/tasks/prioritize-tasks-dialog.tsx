@@ -22,7 +22,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { runFlow } from '@genkit-ai/next/run-flow';
+import { runFlow } from '@genkit-ai/next';
 import { prioritizeTasksFlow } from '@/ai/flows/prioritizeTasks';
 import type { Task, Employee } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';

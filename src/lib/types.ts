@@ -1,3 +1,5 @@
+import { FieldValue } from "firebase/firestore";
+
 export type Employee = {
   id: string;
   name: string;
@@ -13,7 +15,7 @@ export type Task = {
   description: string;
   employeeId: string;
   projectId: string;
-  deadline: string;
+  deadline: string | FieldValue;
   priority: 'Low' | 'Medium' | 'High';
   status: 'Todo' | 'In Progress' | 'Done';
 };

@@ -1,0 +1,113 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "Represents a user's profile in the system.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The user's unique ID."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name."
+        },
+        "photoURL": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL of the user's profile picture."
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "Employee": {
+      "title": "Employee",
+      "description": "Represents an employee in the company.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "role": { "type": "string" },
+        "reportingManagerId": { "type": ["string", "null"] },
+        "avatar": { "type": "string", "format": "uri" }
+      },
+      "required": ["name", "email", "role"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Represents a project.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "employeeIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["name"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "Represents a task within a project.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "employeeId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "deadline": { "type": "string", "format": "date-time" },
+        "priority": { "type": "string", "enum": ["Low", "Medium", "High"] },
+        "status": { "type": "string", "enum": ["Todo", "In Progress", "Done"] }
+      },
+      "required": ["title", "employeeId", "projectId", "deadline", "priority", "status"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Tracks employee attendance.",
+      "type": "object",
+      "properties": {
+        "employeeId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["Present", "Absent", "Vacation"] }
+      },
+      "required": ["employeeId", "date", "status"]
+    },
+    "DailyStatus": {
+      "title": "Daily Status",
+      "description": "Daily status update from an employee.",
+      "type": "object",
+      "properties": {
+        "employeeId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "update": { "type": "string" },
+        "hoursWorked": { "type": "number" }
+      },
+      "required": ["employeeId", "date", "update", "hoursWorked"]
+    }
+  },
+  "auth": {
+    "providers": ["google.com", "password"]
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores user profile information."
+    },
+    "/employees": {
+      "schema": { "$ref": "#/entities/Employee" },
+      "description": "Collection of all employees."
+    },
+    "/projects": {
+      "schema": { "$ref": "#/entities/Project" },
+      "description": "Collection of all projects."
+    },
+    "/tasks": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "Collection of all tasks."
+    }
+  }
+}

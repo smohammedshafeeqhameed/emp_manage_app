@@ -1,3 +1,6 @@
+'use client';
+
+import { useMemo } from 'react';
 import {
   Table,
   TableBody,
@@ -17,12 +20,32 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { employees } from "@/lib/data";
+import { useCollection, useFirestore } from '@/firebase';
+import { collection } from 'firebase/firestore';
+import { useMemoFirebase } from '@/hooks/use-memo-firebase';
+import { Employee } from '@/lib/types';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function EmployeesPage() {
+  const firestore = useFirestore();
+  
+  const employeesQuery = useMemoFirebase(() => 
+    firestore ? collection(firestore, 'employees') : null
+  , [firestore]);
+
+  const { data: employees, loading } = useCollection<Employee>(employeesQuery);
+
+  const employeeMap = useMemo(() => {
+    if (!employees) return new Map<string, string>();
+    return employees.reduce((acc, emp) => {
+      acc.set(emp.id, emp.name);
+      return acc;
+    }, new Map<string, string>());
+  }, [employees]);
+
   const getManagerName = (managerId: string | null) => {
     if (!managerId) return 'N/A';
-    return employees.find(e => e.id === managerId)?.name || 'Unknown';
+    return employeeMap.get(managerId) || 'Unknown';
   };
 
   return (
@@ -47,7 +70,23 @@ export default function EmployeesPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {employees.map((employee) => (
+            {loading && Array.from({ length: 5 }).map((_, i) => (
+              <TableRow key={i}>
+                <TableCell>
+                  <div className="flex items-center gap-3">
+                    <Skeleton className="h-10 w-10 rounded-full" />
+                    <div className="space-y-2">
+                       <Skeleton className="h-4 w-[150px]" />
+                       <Skeleton className="h-3 w-[100px] md:hidden" />
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-[100px]" /></TableCell>
+                <TableCell className="hidden md:table-cell"><Skeleton className="h-4 w-[100px]" /></TableCell>
+                <TableCell><Skeleton className="h-8 w-8" /></TableCell>
+              </TableRow>
+            ))}
+            {!loading && employees?.map((employee) => (
               <TableRow key={employee.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
